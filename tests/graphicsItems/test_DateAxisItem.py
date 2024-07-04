@@ -86,7 +86,7 @@ def dateAxis():
 
 @pytest.fixture(autouse=True)
 def use_en_us_locale():
-    locale.setlocale(locale.LC_TIME, "en_US")
+    locale.setlocale(locale.LC_TIME, "en_US.utf8")
 
 
 def test_preferred_utc_offset_respects_chosen_offset():
