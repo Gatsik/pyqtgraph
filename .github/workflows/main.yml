@@ -136,7 +136,7 @@ jobs:
     - name: Show locales
       run: |
         locale -a
-      if: runner.os !- 'Windows'
+      if: runner.os != 'Windows'
     - name: Run Tests
       run: |
         mkdir "$SCREENSHOT_DIR"
