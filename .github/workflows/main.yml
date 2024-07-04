@@ -1,16 +1,12 @@
 name: main
 
 on:
-  push:
-    branches-ignore: ["dependabot/**"]
-  pull_request:
-    paths-ignore:
-      - '**.md'
+  workflow_dispatch:
 
 env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
 
-concurrency: 
+concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
@@ -26,7 +22,7 @@ jobs:
         cache: pip
     - name: Install Build Dependencies
       run: |
-        python -m pip install --upgrade doc2dash setuptools -r doc/requirements.txt 
+        python -m pip install --upgrade doc2dash setuptools -r doc/requirements.txt
     - name: Build docset
       run: |
         make -C doc dash
@@ -137,6 +133,10 @@ jobs:
         python -m pyqtgraph.util.glinfo
         python -m pyqtgraph.util.get_resolution
       if: runner.os != 'Linux'
+    - name: Show locales
+      run: |
+        locale -a
+      if: runner.os == 'Linux'
     - name: Run Tests
       run: |
         mkdir "$SCREENSHOT_DIR"
@@ -269,7 +269,7 @@ jobs:
         with:
           name: wheel
           path: dist/*.whl
-  
+
   analyze:
     name: analyze
     runs-on: ubuntu-latest
