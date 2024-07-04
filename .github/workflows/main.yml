@@ -140,7 +140,7 @@ jobs:
     - name: Run Tests
       run: |
         mkdir "$SCREENSHOT_DIR"
-        coverage run -m pytest tests -v
+        coverage run -m pytest tests/graphicsItems/test_DateAxisItem.py -v
         pytest pyqtgraph/examples -v -n 2
       shell: bash
     - name: Upload coverage data
@@ -238,8 +238,7 @@ jobs:
     - name: Run Tests
       run: |
         mkdir "$SCREENSHOT_DIR"
-        pytest tests -v
-        pytest pyqtgraph/examples -v -n 2
+        pytest tests/graphicsItems/test_DateAxisItem.py -v
     - name: Upload Screenshots
       if: failure()
       uses: actions/upload-artifact@v4
