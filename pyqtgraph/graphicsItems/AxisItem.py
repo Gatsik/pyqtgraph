@@ -16,10 +16,10 @@ __all__ = ['AxisItem']
 class AxisItem(GraphicsWidget):
     """
     GraphicsItem showing a single plot axis with ticks, values, and label.
-    
+
     Can be configured to fit on any side of a plot, automatically synchronize its
     displayed scale with ViewBox items. Ticks can be extended to draw a grid.
-    
+
     If maxTickLength is negative, ticks point into the plot.
 
     Parameters
@@ -162,7 +162,7 @@ class AxisItem(GraphicsWidget):
                                   The maximum length of ticks in pixels. Positive values
                                   point toward the text; negative values point away.
 
-            tickTextOffset        ``int`` 
+            tickTextOffset        ``int``
                                   Reserved spacing between text and axis in pixels.
 
             tickTextWidth         ``int``
@@ -193,8 +193,8 @@ class AxisItem(GraphicsWidget):
             tickFont              :class:`QFont` or ``None``
                                   Determines the font used for tick values. Use None for
                                   the default font.
-            
-            stopAxisAtTick        tuple of ``bool, bool`` 
+
+            stopAxisAtTick        tuple of ``bool, bool``
                                   The first element represents the horizontal axis, the
                                   second element represents the vertical axis.
 
@@ -211,7 +211,7 @@ class AxisItem(GraphicsWidget):
                                   tuple in the list specifies what fraction of the axis
                                   length may be occupied by text, given the number of
                                   ticks that already have text displayed.
-                                  
+
                                   For example ::
 
                                     [
@@ -219,19 +219,19 @@ class AxisItem(GraphicsWidget):
                                         (0, 0.8),
                                         # If we already have 2 ticks with text, fill no
                                         # more than 60% of the axis
-                                        (2, 0.6), 
+                                        (2, 0.6),
                                         # If we already have 4 ticks with text, fill no
                                         # more than 40% of the axis
-                                        (4, 0.4), 
+                                        (4, 0.4),
                                         # If we already have 6 ticks with text, fill no
                                         # more than 20% of the axis
                                         (6, 0.2)
                                     ]
-                                                
+
             showValues            ``bool``
                                   indicates whether text is displayed adjacent to ticks.
-            
-            tickAlpha             ``float``,``int`` or ``None`` 
+
+            tickAlpha             ``float``,``int`` or ``None``
                                   If ``None``, pyqtgraph will draw the ticks with the
                                   alpha it deems appropriate. Otherwise, the alpha will
                                   be fixed at the value passed. With ``int``, accepted
@@ -256,7 +256,7 @@ class AxisItem(GraphicsWidget):
                     'tickTextOffset',
                     'tickTextWidth',
                     'tickTextHeight'
-                ) and 
+                ) and
                 not isinstance(value, int)
             ):
                 raise TypeError(f"Argument '{kwd}' must be int")
@@ -295,7 +295,7 @@ class AxisItem(GraphicsWidget):
         ----------
         grid : bool or int or float
             Alpha value to apply to :class:`~pyqtgraph.GridItem`.
-            
+
             - ``False`` - Disable the grid.
             - ``int`` - Values between [0, 255] to set the alpha of the grid to.
             - ``float`` - Values between [0..1] to set the alpha of the grid to.
@@ -370,7 +370,7 @@ class AxisItem(GraphicsWidget):
     def setTickFont(self, font: QtGui.QFont | None):
         """
         Set the font used for tick values.
-        
+
         Parameters
         ----------
         font : QtGui.QFont or None
@@ -512,7 +512,7 @@ class AxisItem(GraphicsWidget):
             A tuple of ranges where SI prefix scaling is enabled. Each range is a tuple
             containing two floats representing the start and end of the range. If no
             custom ranges are set, then the default ranges are returned. The default
-            ranges are ``((0., 1.), (1e9, inf))`` if units are empty, and 
+            ranges are ``((0., 1.), (1e9, inf))`` if units are empty, and
             ``((0., inf))`` otherwise.
         """
         if self._siPrefixEnableRanges is not None:
@@ -630,7 +630,7 @@ class AxisItem(GraphicsWidget):
         w : int or None, optional
             If ``None``, then the value will be determined automatically based on the
             size of the tick text, by default None.
-        """        
+        """
         self.fixedWidth = w
         self._updateWidth()
 
@@ -682,7 +682,7 @@ class AxisItem(GraphicsWidget):
     def setPen(self, *args, **kwargs):
         """
         Set the pen used for drawing text, axes, ticks, and grid lines.
-        
+
         If no arguments given, the default foreground color will be used.
 
         Parameters
@@ -729,7 +729,7 @@ class AxisItem(GraphicsWidget):
         Set the pen used for drawing text.
 
         If no arguments given, the default foreground color will be used.
-        
+
         Parameters
         ----------
         *args : tuple
@@ -768,7 +768,7 @@ class AxisItem(GraphicsWidget):
         Set the pen used for drawing ticks.
 
         If no arguments given, the default foreground color will be used.
-        
+
         Parameters
         ----------
         *args : tuple
@@ -967,7 +967,7 @@ class AxisItem(GraphicsWidget):
         linkedView = self.linkedView()
         if linkedView is not None and self.grid is not False:
             return (
-                self.mapRectFromParent(self.geometry()) | 
+                self.mapRectFromParent(self.geometry()) |
                 linkedView.mapRectToItem(self, linkedView.boundingRect())
             )
         rect = self.mapRectFromParent(self.geometry())
@@ -1038,7 +1038,7 @@ class AxisItem(GraphicsWidget):
         This overrides the behavior specified by
         :meth:`~pyqtgraph.AxisItem.tickSpacing`, :meth:`~pyqtgraph.AxisItem.tickValues`,
         and :meth:`~pyqtgraph.AxisItem.tickStrings`.
-        
+
         The format for *ticks* looks like::
 
             [
@@ -1054,7 +1054,7 @@ class AxisItem(GraphicsWidget):
                 ],
                 ...
             ]
-        
+
         The two levels of major and minor ticks are expected. A third tier of additional
         ticks is optional. If *ticks* is ``None``, then the default tick system will be
         used.
@@ -1063,7 +1063,7 @@ class AxisItem(GraphicsWidget):
         ----------
         ticks : list of list of float, str or None
             Explicitly set tick display information.
-        
+
         See Also
         --------
         :meth:`~pyqtgraph.AxisItem.tickSpacing`
@@ -1072,7 +1072,7 @@ class AxisItem(GraphicsWidget):
             How tick values are set.
         :meth:`~pyqtgraph.AxisItem.tickStrings`
             How tick strings are specified.
-        """        
+        """
 
         self._tickLevels = ticks
         self.picture = None
@@ -1142,7 +1142,7 @@ class AxisItem(GraphicsWidget):
             A list of tuples, one for each tick level.
             Each tuple contains two values: ``(spacing, offset)``.  The spacing value
             is the distance between ticks, and the offset is the first tick relative to
-            *minVal*. For example, if ``result[0]`` is ``(10, 0)``, then major ticks 
+            *minVal*. For example, if ``result[0]`` is ``(10, 0)``, then major ticks
             will be displayed every 10 units and the first major tick will correspond to
             ``minVal``. If instead ``result[0]`` is ``(10, 5)``, then major ticks will
             be displayed every 10 units, but the first major tick will correspond to
@@ -1438,7 +1438,7 @@ class AxisItem(GraphicsWidget):
               the pen, start point, and end point of the tick line.
             - ``textSpecs``: A list of tuples, one for each tick label. Each tuple
               contains the bounding rectangle, alignment flags, and text of the label.
-        
+
         :meta private:
         """
         profiler = debug.Profiler()
